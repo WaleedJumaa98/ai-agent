@@ -145,13 +145,38 @@ Get a Gemini API key from [Google AI Studio](https://aistudio.google.com/) and s
 echo "GEMINI_API_KEY=your_key_here" > .env
 ```
 
-## Architecture
+## Security Warning
 
-The agent works through a conversational loop:
-1. User provides a natural language request
-2. Gemini generates function calls based on the system prompt
-3. Functions execute within the sandboxed environment
-4. Results are fed back to Gemini for the next iteration
-5. Process continues until a final response is generated
+⚠️ **IMPORTANT**: This project is for educational purposes only and should not be used in production or given to others for practical use.
 
-This allows complex multi-step operations through natural language instructions.
+### Security Limitations
+
+This AI agent implementation has several security and safety limitations:
+
+- **Limited Sandboxing**: Operations are restricted to the `./calculator` directory, but within that directory, the agent can read, write, and execute arbitrary files
+- **Python Code Execution**: The `run_python_file` function can execute any Python code within the working directory without restrictions
+- **No Authentication**: Anyone with access to the script can run it and make requests to the Gemini API
+- **API Key Exposure**: The Gemini API key is stored in environment variables and could be accessed by executed code
+- **No Input Validation**: User prompts are passed directly to the AI model without additional filtering
+- **Basic Path Protection**: While path traversal attacks are prevented, the sandbox boundaries could potentially be tested
+
+### Intended Use
+
+This project demonstrates:
+- Function calling with Google's Gemini API
+- Basic file operation sandboxing
+- AI-powered coding assistance concepts
+
+**Do not use this for:**
+- Production applications
+- Handling sensitive data
+- Executing untrusted code
+- Real-world file management
+
+For production AI agents, consider additional security measures like:
+- Comprehensive input sanitization
+- Code review and approval workflows
+- Restricted execution environments (containers, VMs)
+- Proper authentication and authorization
+- Audit logging
+- Rate limiting and abuse prevention
